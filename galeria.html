@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nossos Momentos</title>
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Nossos Momentos</h1>
+        <p>A galeria que conta a nossa história através de memórias. Clique em uma foto para ver mais.</p>
+        <a href="home.html" class="btn-voltar">Voltar para o Início</a>
+    </div>
+
+    <div class="gallery-container" id="gallery-container">
+    </div>
+
+    <div id="lightbox-container" class="lightbox-hidden">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-image">
+        <div id="lightbox-caption"></div>
+    </div>
+    <script src="assets/js/galeria.js"></script>
+</body>
+
+</html>

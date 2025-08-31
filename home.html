@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Cantinho</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <h1>Bem-vinda ao nosso cantinho 💜</h1>
+            <div class="counters">
+                <p id="contador-encontro">Calculando...</p>
+                <p id="contador-namoro">Calculando...</p>
+            </div>
+        </header>
+
+        <div class="card-grid">
+            <div class="card">
+                <h2>Navegue por aqui</h2>
+                <a href="pedido.html" class="btn">O Pedido de Namoro</a>
+                <a href="galeria.html" class="btn">Nossos Momentos</a>
+                <a href="aguardo.html" class="btn">Te Aguardo</a>
+            </div>
+
+            <div class="card">
+                <h2>Nosso Mêsversário</h2>
+                <p id="countdown-mesversario">Calculando contagem...</p>
+                <button id="btn-mesversario" class="btn" disabled>Surpresa em 01/06</button>
+            </div>
+
+            <div class="card">
+                <h2>Dia dos Namorados 💘</h2>
+                <p id="countdown-namorados">Calculando contagem...</p>
+                <button id="btn-namorados" class="btn" disabled>Surpresa em 12/06</button>
+                <a href="formulario.html" class="btn-desafio">A ansiedade te pegou? 🎁</a>
+            </div>
+
+            <div class="card">
+                <h2>Mensagens Especiais</h2>
+                <p>Palavras de coração para você.</p>
+                <button onclick="window.location.href='especial.html'" class="btn">Ver mensagem</button>
+                <button onclick="window.location.href='teamo.html'" class="btn">Só pra dizer que...</button>
+            </div>
+
+            <div class="card">
+                <h2>Um Símbolo do Nosso Amor</h2>
+                <p>O dia em que o nosso compromisso ganhou uma nova forma. Terça-feira, 22/07/2025.</p>
+                <button onclick="window.location.href='alianca.html'" class="btn">Ver este momento</button>
+            </div>
+
+            <div class="card">
+                <h2>Feliz 3 Meses! 💌</h2>
+                <p>O tempo voa quando é com você. Uma pequena viagem pelas nossas memórias.</p>
+                <button onclick="window.location.href='3meses.html'" class="btn">Abrir a nossa história</button>
+            </div>
+
+            <div class="card spotify-card">
+                <h2>Nossa Trilha Sonora</h2>
+                <iframe style="border-radius:12px"
+                    src="https://open.spotify.com/embed/track/0Xxjyrl6Z8BtyY7EBBwozI?utm_source=generator" width="100%"
+                    height="152" frameBorder="0" allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
