@@ -1,0 +1,428 @@
+/* =================================
+   CONFIGURAÇÕES GERAIS E FONTES
+   ================================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    line-height: 1.6;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =================================
+   ESTRUTURA E CONTAINERS PRINCIPAIS
+   ================================= */
+.main-container,
+.content-container,
+.letter-container,
+.proposal-container,
+.login-box {
+    max-width: 850px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 50px 60px;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.main-container {
+    max-width: 1200px;
+    padding: 20px;
+    background-color: transparent;
+    /* A página home não tem fundo branco no container principal */
+    box-shadow: none;
+}
+
+/* =================================
+   CABEÇALHOS E TÍTULOS
+   ================================= */
+header h1,
+.letter-container h1,
+.proposal-container h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #343a40;
+    margin: 0 0 20px 0;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #7a4db4;
+    font-weight: 700;
+}
+
+/* =================================
+   BOTÕES PADRONIZADOS
+   ================================= */
+.btn,
+.back-button,
+.login-button {
+    display: inline-block;
+    padding: 14px 35px;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    background-color: #7a4db4;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: auto;
+}
+
+.btn:hover:not(:disabled),
+.back-button:hover,
+.login-button:hover {
+    background-color: #5f3a8e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(122, 77, 180, 0.3);
+}
+
+.btn:disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background-color: #f1f3f5;
+    color: #5f3a8e;
+}
+
+.btn-secondary:hover {
+    background-color: #e9ecef;
+}
+
+.login-button {
+    width: 100%;
+}
+
+
+/* =================================
+   SEÇÕES DE MENSAGEM
+   ================================= */
+.message-body,
+.message-section p,
+.message p {
+    text-align: justify;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #495057;
+}
+
+.message-body {
+    border-top: 1px solid #dee2e6;
+    padding-top: 40px;
+}
+
+.heart {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #e63946;
+    margin-top: 30px;
+}
+
+/* =================================
+   COMPONENTES (CARDS, IMAGENS)
+   ================================= */
+.featured-image,
+.timeline-image {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+}
+
+/* =================================
+   PÁGINA: HOME (home.html)
+   ================================= */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    color: #7a4db4;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.card p {
+    flex-grow: 1;
+}
+
+.btn-desafio {
+    background-color: #e83e8c;
+}
+
+.btn-desafio:hover {
+    background-color: #c2185b;
+}
+
+.spotify-card {
+    grid-column: 1 / -1;
+}
+
+
+/* =================================
+   PÁGINA: GALERIA (galeria.html)
+   ================================= */
+.gallery-container {
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-item .caption {
+    padding: 20px 25px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+#lightbox-container {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#lightbox-container.lightbox-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 75%;
+    object-fit: contain;
+}
+
+#lightbox-caption {
+    margin-top: 20px;
+    color: #f1f1f1;
+    text-align: center;
+    max-width: 700px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+/* =================================
+   PÁGINA: 3 MESES (3meses.html)
+   ================================= */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: #e9e2f3;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    z-index: 0;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -17px;
+    background-color: white;
+    border: 5px solid #7a4db4;
+    top: 25px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(even)::after {
+    left: -16px;
+}
+
+.timeline-content {
+    padding: 25px 30px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.future-section {
+    text-align: center;
+    margin-top: 60px;
+    padding: 40px;
+    background-color: #e9e2f3;
+    border-radius: 16px;
+}
+
+@media screen and (max-width: 800px) {
+    .timeline::after {
+        left: 31px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+
+    .timeline-item:nth-child(even) {
+        left: 0%;
+    }
+}
+
+/* =================================
+   PÁGINA: FORMULÁRIO (formulario.html)
+   ================================= */
+.form-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+.form-container h1 {
+    color: #d81b60;
+}
+
+.form-container label {
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.form-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.form-container button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #d81b60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.success-message {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    color: #4caf50;
+    font-weight: bold;
+}
