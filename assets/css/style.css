@@ -520,3 +520,41 @@ header h1,
 ::-webkit-scrollbar-thumb:hover {
     background-color: #5f3a8e;
 }
+
+/* =================================
+   ESTILOS DE FORMULÁRIOS (Inputs)
+   ================================= */
+
+/* Estilo geral para campos de texto e senha */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    /* Garante a mesma fonte do site */
+    color: #343a40;
+    /* Cor do texto que será digitado */
+    background-color: #f8f9fa;
+    /* Fundo sutilmente cinza para destacar */
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    box-sizing: border-box;
+    /* Essencial para o padding não quebrar o layout */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de foco quando o usuário clica no campo */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #7a4db4;
+    /* Borda fica roxa ao selecionar */
+    box-shadow: 0 0 0 3px rgba(122, 77, 180, 0.2);
+    /* Adiciona um brilho suave */
+}
+
+/* Estilo do texto de placeholder (ex: "Digite a senha aqui...") */
+input::placeholder {
+    color: #adb5bd;
+}
