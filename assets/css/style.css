@@ -558,3 +558,22 @@ input[type="password"]:focus {
 input::placeholder {
     color: #adb5bd;
 }
+
+/* =================================
+   PÁGINA: LOGIN (específico)
+   ================================= */
+
+/* Estilo para a mensagem de erro */
+#error-message {
+    color: #e63946;
+    /* Cor vermelha para alerta */
+    font-size: 0.9rem;
+    margin-top: 15px;
+    transition: opacity 0.3s ease;
+    /* Efeito suave de aparição */
+}
+
+/* Classe que esconde a mensagem por padrão */
+.error-hidden {
+    opacity: 0;
+}
