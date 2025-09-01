@@ -2,35 +2,41 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // ===============================================
-    // MÓDULO 1: CONTADORES E COUNTDOWNS (PÁGINA HOME)
+    // MÓDULO 1: LÓGICA DA PÁGINA HOME
     // ===============================================
-    function iniciarContadoresHome() {
-        if (document.getElementById("contador-encontro")) { // Executa apenas se encontrar o elemento da home
-            const dataEncontro = new Date("2025-04-21T00:00:00");
-            const dataNamoro = new Date("2025-05-01T00:00:00");
-            const hoje = new Date();
-
-            const diffEncontro = Math.floor((hoje - dataEncontro) / (1000 * 60 * 60 * 24));
-            const diffNamoro = Math.floor((hoje - dataNamoro) / (1000 * 60 * 60 * 24));
-
-            document.getElementById("contador-encontro").textContent = `${diffEncontro} dias desde que nos vimos pela primeira vez.`;
-            document.getElementById("contador-namoro").textContent = `${diffNamoro} dias de namoro.`;
-
-            iniciarCountdown("countdown-mesversario", "btn-mesversario", new Date("2025-06-01T00:00:00"), () => { window.location.href = "mesversario.html"; });
-            iniciarCountdown("countdown-namorados", "btn-namorados", new Date("2025-06-12T00:00:00"), () => { window.location.href = "namorados1.html"; });
+    function iniciarLogicaHome() {
+        if (document.getElementById("contador-encontro")) { // Executa apenas na home
+            iniciarContadores();
+            iniciarTodosOsCountdowns();
         }
+    }
+
+    function iniciarContadores() {
+        const dataEncontro = new Date("2025-04-21T00:00:00");
+        const dataNamoro = new Date("2025-05-01T00:00:00");
+        const hoje = new Date();
+        const diffEncontro = Math.floor((hoje - dataEncontro) / (1000 * 60 * 60 * 24));
+        const diffNamoro = Math.floor((hoje - dataNamoro) / (1000 * 60 * 60 * 24));
+        document.getElementById("contador-encontro").textContent = `${diffEncontro} dias desde que nos vimos pela primeira vez.`;
+        document.getElementById("contador-namoro").textContent = `${diffNamoro} dias de namoro.`;
+    }
+
+    function iniciarTodosOsCountdowns() {
+        iniciarCountdown("countdown-mesversario", "btn-mesversario", new Date("2025-06-01T00:00:00"), () => { window.location.href = "mesversario.html"; });
+        iniciarCountdown("countdown-namorados", "btn-namorados", new Date("2025-06-12T00:00:00"), () => { window.location.href = "namorados1.html"; });
     }
 
     function iniciarCountdown(elementId, buttonId, unlockDate, onUnlock) {
         const countdownElement = document.getElementById(elementId);
         const buttonElement = document.getElementById(buttonId);
+        if (!countdownElement) return;
 
-        function update() {
+        const intervalo = setInterval(() => {
             const now = new Date();
             const diff = unlockDate - now;
 
             if (diff <= 0) {
-                if (countdownElement) countdownElement.textContent = "A surpresa está liberada!";
+                countdownElement.textContent = "A surpresa está liberada!";
                 if (buttonElement) {
                     buttonElement.disabled = false;
                     buttonElement.onclick = onUnlock;
@@ -40,36 +46,36 @@ document.addEventListener("DOMContentLoaded", function () {
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
                 const minutes = Math.floor((diff / (1000 * 60)) % 60);
-                if (countdownElement) {
-                    countdownElement.textContent = `${days}d ${hours}h ${minutes}min restantes`;
-                }
+                countdownElement.textContent = `${days}d ${hours}h ${minutes}min restantes`;
             }
-        }
-        if (countdownElement) {
-            const intervalo = setInterval(update, 60000);
-            update();
-        }
+        }, 60000);
+        // Roda a função uma vez imediatamente
+        intervalo();
     }
 
     // ===============================================
-    // MÓDULO 2: COMPONENTE DE CARROSSEL REUTILIZÁVEL
+    // MÓDULO 2: CARROSSEL REUTILIZÁVEL
     // ===============================================
     function inicializarCarrossel(seletorContainer) {
         const carrossel = document.querySelector(seletorContainer);
-        if (!carrossel) return;
+        if (!carrossel) return; // Se não achar o carrossel, para a execução
 
         const slideContainer = carrossel.querySelector('.slides');
         const prevBtn = carrossel.querySelector('.arrow.left');
         const nextBtn = carrossel.querySelector('.arrow.right');
         const slides = carrossel.querySelectorAll('.slide');
-        const dotsContainer = carrossel.parentElement.querySelector('.carousel-dots');
+
+        // Verifica se todos os componentes essenciais existem
+        if (!slideContainer || !prevBtn || !nextBtn || slides.length === 0) {
+            console.error("Componentes do carrossel não encontrados para o seletor:", seletorContainer);
+            return;
+        }
+
+        const dotsContainer = carrossel.closest('.carousel-wrapper')?.querySelector('.carousel-dots');
         let dots = [];
 
-        if (!slideContainer || !prevBtn || !nextBtn || slides.length === 0) return;
-
-        // Cria os pontos se o container de pontos existir
         if (dotsContainer) {
-            dotsContainer.innerHTML = ''; // Limpa pontos existentes
+            dotsContainer.innerHTML = '';
             slides.forEach((_, index) => {
                 const dot = document.createElement("span");
                 dot.className = "dot";
@@ -89,34 +95,38 @@ document.addEventListener("DOMContentLoaded", function () {
             slideContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
             if (dots.length > 0) {
                 dots.forEach(dot => dot.classList.remove("active"));
-                dots[currentSlide].classList.add("active");
+                if (dots[currentSlide]) dots[currentSlide].classList.add("active");
             }
         }
 
-        function showNextSlide() {
+        nextBtn.addEventListener("click", () => {
             currentSlide = (currentSlide + 1) % totalSlides;
             update();
-        }
-
-        function showPrevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            update();
-        }
-
-        nextBtn.addEventListener("click", showNextSlide);
-        prevBtn.addEventListener("click", showPrevSlide);
-
-        let autoSlideInterval = setInterval(showNextSlide, 4000);
-        carrossel.addEventListener("mouseenter", () => clearInterval(autoSlideInterval));
-        carrossel.addEventListener("mouseleave", () => {
-            autoSlideInterval = setInterval(showNextSlide, 4000);
         });
 
-        update();
+        prevBtn.addEventListener("click", () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            update();
+        });
+
+        let autoSlideInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            update();
+        }, 4000);
+
+        carrossel.addEventListener("mouseenter", () => clearInterval(autoSlideInterval));
+        carrossel.addEventListener("mouseleave", () => {
+            autoSlideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                update();
+            }, 4000);
+        });
+
+        update(); // Chama a função para alinhar o slide inicial
     }
 
     // ==============================================================
-    // MÓDULO 3: GERADOR DE SLIDES DINÂMICOS (PÁGINA ESPECIAL)
+    // MÓDULO 3: GERADOR DE SLIDES DA PÁGINA "ESPECIAL"
     // ==============================================================
     function gerarSlidesEspecial() {
         const slideContainer = document.getElementById("slideContainerEspecial");
@@ -129,20 +139,19 @@ document.addEventListener("DOMContentLoaded", function () {
             const img = document.createElement("img");
             img.src = `images/especial/imagem (${i}).jpg`;
             img.alt = `Foto ${i}`;
-            img.loading = "lazy"; // Otimização: carrega imagens conforme necessário
+            img.loading = "lazy";
             slide.appendChild(img);
             slideContainer.appendChild(slide);
         }
 
-        // Após criar os slides, inicializa o carrossel para esta seção
+        // Após criar os slides, inicializa APENAS o carrossel desta seção
         inicializarCarrossel("#carousel-especial");
     }
 
-
     // ===============================================
-    // INICIALIZAÇÃO DOS MÓDulos
+    // INICIALIZAÇÃO GERAL
     // ===============================================
-    iniciarContadoresHome();
-    gerarSlidesEspecial(); // Gera os slides e depois inicializa o carrossel da pág. especial
-    inicializarCarrossel("#carousel-namorados"); // Tenta iniciar o carrossel da pág. namorados
+    iniciarLogicaHome();
+    gerarSlidesEspecial();
+    inicializarCarrossel("#carousel-namorados"); // Tenta rodar o da pág. namorados
 });
