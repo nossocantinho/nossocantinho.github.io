@@ -3,16 +3,49 @@
    ================================= */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+/* Substitua o seu 'body' atual por este para o efeito de gradiente */
 body {
     margin: 0;
-    padding: 40px 20px;
     font-family: 'Montserrat', sans-serif;
-    background-color: #f8f9fa;
     color: #343a40;
     line-height: 1.6;
-    animation: fadeInAnimation ease 1s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+
+    /* O Gradiente */
+    background: linear-gradient(315deg, #f8f9fa, #e9e2f3, #f8f9fa);
+    background-size: 400% 400%;
+
+    /* A Animação */
+    animation: fadeInAnimation ease 1s, gradientAnimation 15s ease infinite;
+    animation-iteration-count: 1, infinite;
+    animation-fill-mode: forwards, none;
+}
+
+/* Animação que move o fundo do gradiente */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Keyframe da animação de entrada da página (mantido do passo anterior) */
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeInAnimation {
