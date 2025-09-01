@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // MÓDULO 1: LÓGICA DA PÁGINA HOME
     // ===============================================
     function iniciarLogicaHome() {
-        if (document.getElementById("contador-encontro")) { // Executa apenas na home
+        // Executa apenas se encontrar o elemento da home
+        if (document.getElementById("contador-encontro")) {
             iniciarContadores();
-            iniciarTodosOsCountdowns();
         }
     }
 
@@ -21,51 +21,18 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("contador-namoro").textContent = `${diffNamoro} dias de namoro.`;
     }
 
-    function iniciarTodosOsCountdowns() {
-        iniciarCountdown("countdown-mesversario", "btn-mesversario", new Date("2025-06-01T00:00:00"), () => { window.location.href = "mesversario.html"; });
-        iniciarCountdown("countdown-namorados", "btn-namorados", new Date("2025-06-12T00:00:00"), () => { window.location.href = "namorados1.html"; });
-    }
-
-    function iniciarCountdown(elementId, buttonId, unlockDate, onUnlock) {
-        const countdownElement = document.getElementById(elementId);
-        const buttonElement = document.getElementById(buttonId);
-        if (!countdownElement) return;
-
-        const intervalo = setInterval(() => {
-            const now = new Date();
-            const diff = unlockDate - now;
-
-            if (diff <= 0) {
-                countdownElement.textContent = "A surpresa está liberada!";
-                if (buttonElement) {
-                    buttonElement.disabled = false;
-                    buttonElement.onclick = onUnlock;
-                }
-                clearInterval(intervalo);
-            } else {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / (1000 * 60)) % 60);
-                countdownElement.textContent = `${days}d ${hours}h ${minutes}min restantes`;
-            }
-        }, 60000);
-        // Roda a função uma vez imediatamente
-        intervalo();
-    }
-
     // ===============================================
     // MÓDULO 2: CARROSSEL REUTILIZÁVEL
     // ===============================================
     function inicializarCarrossel(seletorContainer) {
         const carrossel = document.querySelector(seletorContainer);
-        if (!carrossel) return; // Se não achar o carrossel, para a execução
+        if (!carrossel) return;
 
         const slideContainer = carrossel.querySelector('.slides');
         const prevBtn = carrossel.querySelector('.arrow.left');
         const nextBtn = carrossel.querySelector('.arrow.right');
         const slides = carrossel.querySelectorAll('.slide');
 
-        // Verifica se todos os componentes essenciais existem
         if (!slideContainer || !prevBtn || !nextBtn || slides.length === 0) {
             console.error("Componentes do carrossel não encontrados para o seletor:", seletorContainer);
             return;
@@ -99,30 +66,26 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        nextBtn.addEventListener("click", () => {
+        function showNextSlide() {
             currentSlide = (currentSlide + 1) % totalSlides;
             update();
-        });
+        }
 
-        prevBtn.addEventListener("click", () => {
+        function showPrevSlide() {
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             update();
-        });
+        }
 
-        let autoSlideInterval = setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            update();
-        }, 4000);
+        nextBtn.addEventListener("click", showNextSlide);
+        prevBtn.addEventListener("click", showPrevSlide);
 
+        let autoSlideInterval = setInterval(showNextSlide, 4000);
         carrossel.addEventListener("mouseenter", () => clearInterval(autoSlideInterval));
         carrossel.addEventListener("mouseleave", () => {
-            autoSlideInterval = setInterval(() => {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                update();
-            }, 4000);
+            autoSlideInterval = setInterval(showNextSlide, 4000);
         });
 
-        update(); // Chama a função para alinhar o slide inicial
+        update();
     }
 
     // ==============================================================
@@ -130,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==============================================================
     function gerarSlidesEspecial() {
         const slideContainer = document.getElementById("slideContainerEspecial");
-        if (!slideContainer) return; // Só executa na página certa
+        if (!slideContainer) return;
 
         const totalImagens = 78;
         for (let i = 1; i <= totalImagens; i++) {
@@ -144,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
             slideContainer.appendChild(slide);
         }
 
-        // Após criar os slides, inicializa APENAS o carrossel desta seção
         inicializarCarrossel("#carousel-especial");
     }
 
@@ -153,5 +115,5 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===============================================
     iniciarLogicaHome();
     gerarSlidesEspecial();
-    inicializarCarrossel("#carousel-namorados"); // Tenta rodar o da pág. namorados
+    inicializarCarrossel("#carousel-namorados");
 });
