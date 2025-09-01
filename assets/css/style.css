@@ -404,6 +404,40 @@ header h1,
     .timeline-item:nth-child(even) {
         left: 0%;
     }
+
+    /* ... outros estilos da timeline ... */
+
+    .timeline::after {
+        /* Esta é a linha de fundo cinza - já existe */
+        content: '';
+        position: absolute;
+        width: 6px;
+        background-color: #e9e2f3;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+        z-index: 0;
+    }
+
+    /* ADICIONE ESTE NOVO BLOCO DE CÓDIGO */
+    .timeline::before {
+        /* Esta será a nova linha de progresso roxa */
+        content: '';
+        position: absolute;
+        width: 6px;
+        background-color: #7a4db4;
+        top: 0;
+        left: 50%;
+        margin-left: -3px;
+        z-index: 0;
+        height: 0;
+        /* Começa com altura 0 */
+        transition: height 0.2s ease-out;
+        /* Animação suave */
+    }
+
+    /* ... resto dos estilos da timeline ... */
 }
 
 /* =================================
@@ -458,4 +492,31 @@ header h1,
     margin-top: 20px;
     color: #4caf50;
     font-weight: bold;
+}
+
+/* =================================
+   POLIMENTO VISUAL: BARRA DE ROLAGEM
+   ================================= */
+/* Funciona em navegadores baseados em WebKit (Chrome, Safari, Edge) */
+
+/* A barra de rolagem inteira */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* O fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+    background: #e9e2f3;
+}
+
+/* O "pegador" da barra de rolagem */
+::-webkit-scrollbar-thumb {
+    background-color: #7a4db4;
+    border-radius: 20px;
+    border: 2px solid #e9e2f3;
+}
+
+/* O "pegador" ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #5f3a8e;
 }
